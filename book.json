@@ -1,0 +1,9 @@
+{
+    "title": "hmFight's Note",
+    "description": "个人笔记总结",
+    "author": "hmFight",
+    "output.name": "hmfight-site",
+    "language": "zh-hans",
+    "gitbook": "3.2.3",
+    "root": "."
+}
