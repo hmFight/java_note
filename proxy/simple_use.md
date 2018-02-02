@@ -1,4 +1,4 @@
-#静态、JDK动态代理和Cglib动态代理的简单使用
+#静态、JDK和Cglib动态代理的简单使用
 
 前段时间看了下 Mybatis , 顺便梳理下关于代理这一块的知识。
 
@@ -8,23 +8,21 @@
 
 ```java
 //卖火车票接口
-public interface TrainTicketSeller {
+public interface TicketSeller {
     void query();
     void sell();
 }
 ```
 
-```
+```java
 //12306 被代理方
-public class Seller12306 implements TrainTicketSeller {
-	
-	//实际业务
+public class Seller12306 implements TicketSeller {
+
     @Override
     public void query() {
-        System.out.println("您好，您回家的票还有……0张");
+        System.out.println("您好，您回家的票还有……1张");
     }
 
-    //实际业务
     @Override
     public void sell() {
         System.out.println("您已购买回家的票！");
@@ -40,9 +38,9 @@ public class Seller12306 implements TrainTicketSeller {
 
 第三方代理售票，比如美团、铁友啊
 
-````
+````java
 //第三方代理售票，加了漂亮的头和尾。。。>..
-public class MeiTuanSeller implements TrainTicketSeller {
+public class MeiTuanSeller implements TicketSeller {
     private Seller12306 seller12306;
 
     public MeiTuanSeller(Seller12306 seller12306) {
@@ -51,19 +49,16 @@ public class MeiTuanSeller implements TrainTicketSeller {
 
     @Override
     public void query() {
-        //额外功能操作
-        System.out.println("*********************");
-        //实际业务
+        System.out.println("***********before***********");
         seller12306.query();
-        //额外功能操作
-        System.out.println("********************");
+        System.out.println("***********after************");
     }
 
     @Override
     public void sell() {
-        System.out.println("*********************");
+        System.out.println("***********before***********");
         seller12306.sell();
-        System.out.println("********************");
+        System.out.println("***********after************");
     }
 }
 ````
@@ -75,12 +70,12 @@ seller.query();
 seller.sell();
 
 /**输出结果：
-**********************
+***********before***********
 您好，您回家的票还有……1张
-**********************
-**********************
+***********after************
+***********before***********
 您已购买回家的票！
-**********************
+***********after************
 **/
 ````
 
@@ -114,7 +109,7 @@ seller.sell();
 
 ````java
 //代理类不跟任何具体被代理有强绑定关系，理论上所有需要 doAfter() 和 doAfter()的都可以使用此代理
-public class MtDyProxy implements InvocationHandler {
+public class JdkBasedProxy implements InvocationHandler {
     /**
      * 被代理对象
      */
@@ -134,12 +129,12 @@ public class MtDyProxy implements InvocationHandler {
         return invokeRes;
     }
 
-    private void doAfter() {
-        System.out.println("**********************");
+    private void doBefore() {
+        System.out.println("***********before***********");
     }
 
-    private void doBefore() {
-        System.out.println("*********************");
+    private void doAfter() {
+        System.out.println("**********after************");
     }
 
 }
@@ -148,17 +143,21 @@ public class MtDyProxy implements InvocationHandler {
 **使用**
 
 ````java
-TrainTicketSeller seller = (TrainTicketSeller) new MtDyProxy().bind(new Seller12306());
-seller.query();
-seller.sell();
+@Test
+public void testJdkBasedProxy() throws Exception {
+    TicketSeller seller = (TicketSeller) new JdkBasedProxy().bind(new Seller12306());
+    seller.query();
+    seller.sell();
+    ProxyUtils.generateClassFile(seller.getClass(),"ReadProxy");
+}
 
 /**输出结果：
-**********************
+***********before***********
 您好，您回家的票还有……1张
-**********************
-**********************
+***********after************
+***********before***********
 您已购买回家的票！
-**********************
+***********after************
 **/
 ````
 
@@ -182,7 +181,7 @@ import net.sf.cglib.proxy.Enhancer;
 import net.sf.cglib.proxy.MethodInterceptor;
 import net.sf.cglib.proxy.MethodProxy;
 
-public class CglibCommonProxy implements MethodInterceptor {
+public class CglibProxy implements MethodInterceptor {
 
     /**
      * 被代理对象，供代理方法中进行真正的业务方法调用
@@ -212,11 +211,11 @@ public class CglibCommonProxy implements MethodInterceptor {
     }
 
     private void doAfter() {
-        System.out.println("**********************");
+        System.out.println("***********before***********");
     }
 
     private void doBefore() {
-        System.out.println("**********************");
+        System.out.println("**********after************");
     }
 
 }
@@ -227,20 +226,19 @@ public class CglibCommonProxy implements MethodInterceptor {
 ````java
 @Test
 public void cglibProxy() throws Exception {
-    CglibCommonProxy cglib = new CglibCommonProxy();
-  	//注意这里，不需要依赖接口
+    CglibProxy cglib = new CglibProxy();
     Seller12306 seller = (Seller12306) cglib.getInstance(new Seller12306());
     seller.query();
     seller.sell();
 }
 
 /**输出结果：
-**********************
+**********before************
 您好，您回家的票还有……1张
-**********************
-**********************
+***********after***********
+**********before************
 您已购买回家的票！
-**********************
+***********after***********
 **/
 ````
 
