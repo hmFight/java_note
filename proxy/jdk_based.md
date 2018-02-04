@@ -1,8 +1,22 @@
 Jdk-动态代理原理
 
+
+
+参考文章
+
+> [JDK动态代理3----WeakCache缓存的实现机制](http://www.cnblogs.com/liuyun1995/p/8144676.html)
+>
+> [代理4 动态代理的缓存机制](https://www.jianshu.com/p/9f5566b5e7fb)
+>
+> [引用](http://blog.csdn.net/stridebin/article/details/73639378)
+>
+> [ Java Reference 源码分析](https://www.cnblogs.com/jabnih/p/6580665.html)
+>
+> [Java引用类型](http://www.importnew.com/20468.html)
+
 [上篇](https://hmfight.gitbooks.io/java_note/content/proxy/simple_use.html) 中简单介绍了关于 Java 中 3中代理的使用。其中静态代理模式比较简单直白，但是缺点也很明显，相比较而言 Jdk 动态代理和 Cglib 动态代理实用性更强。
 
-但是由于两种动态代理模式中代理类都是由动态生成，导致整个调用链不够直白清晰。使用者不容易弄清楚发生了什么。因此，接下来会通过[上篇](https://hmfight.gitbooks.io/java_note/content/proxy/simple_use.html) 的实例梳理下 JDK 动态代理和 Cglib 动态代理的原理。 
+但是由于两种动态代理模式中代理类都是由动态生成，导致整个调用链不够直白清晰。使用者不容易弄清楚发生了什么。接下来会通过实例和源码分析更深入的梳理下 JDK 动态代理。
 
 一、实例 code
 
@@ -95,3 +109,15 @@ public void testJdkBasedProxy() throws Exception {
 **问题点：这个 seller 是如何调用到 JdkBasedProxy 中的 doBefore() 和 doAfter()的？**
 
 其实
+
+
+
+
+
+### WeakCache 源码分析
+
+1、二级缓存
+
+2、弱引用
+
+3、
