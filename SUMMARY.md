@@ -6,4 +6,6 @@
   * [Jdk动态代理原理](proxy/jdk_based.md)
 * [垃圾收集](garbage_ollection/README.md)
   * [引用关系](garbage_ollection/reference.md)
+* [重要的类](important/README.md)
+  * [Object](important/Object.md)
 
