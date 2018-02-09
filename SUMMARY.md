@@ -8,4 +8,8 @@
   * [引用关系](garbage_ollection/reference.md)
 * [重要的类](important/README.md)
   * [Object](important/Object.md)
-
+* [多线程](thread/README.md)
+  * [synchronized](thread/synchronized.md)
+  * [问题实例](thread/problem.md)
+* [缓存](cache/README.md)
+  * [缓存分类、简介](cache/info.md)
