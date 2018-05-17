@@ -1,0 +1,132 @@
+#### Java 语言
+
+#### 技术类
+
+* JDK 和 JRE 分别是什么？有什么区别？
+
+  ````
+  JRE（Java Runtime Environment），JRE顾名思义是java运行时环境，包含了java虚拟机，java基础类库。是使用java语言编写的程序运行所需要的软件环境，是提供给想运行java程序的用户使用的。
+  
+  JDK（Java Development Kit）,JDK顾名思义是java开发工具包，是程序员使用java语言编写java程序所需的开发工具包，是提供给程序员使用的。JDK包含了JRE，同时还包含了编译java源码的编译器javac，还包含了很多java程序调试和分析的工具：jconsole，jvisualvm等工具软件，还包含了java程序编写所需的文档和demo例子程序。
+  ````
+
+* Object 类中有哪些方法？
+
+  ````
+  public final native Class<?> getClass();
+  public native int hashCode();
+  public boolean equals(Object obj){};
+  protected native Object clone();
+  public String toString() {}
+  
+  public final native void notify();
+  public final native void notifyAll();
+  public final native void wait(long timeout) throws InterruptedException;
+  public final void wait(long timeout, int nanos) throws InterruptedException {}
+  public final void wait() throws InterruptedException{}
+  protected void finalize() throws Throwable { }
+  ````
+
+* 有一个类com.eg.interview.Order，获取 Order 对应 Class 对象的方式？
+
+  ````
+  1、Order.getClass()
+  2、Order.class
+  3、Class.forName("com.eg.interview.Order")
+  ````
+
+* Java8 有哪些新增特性或语法？
+
+  ````
+  JAVA8
+  	Lambda Expressions
+  	Pipelines and Streams
+  	Date and Time API
+  	Default Methods
+  	Type Annotations
+  	Nashhorn JavaScript Engine
+  	Concurrent Accumulators
+  	Parallel operations
+  	PermGen Error Removed
+  ````
+
+* 常见常用注解？@Retention 有哪些待选值？@Target ？
+
+  ````
+  public enum RetentionPolicy {
+      SOURCE, //SuppressWarnings
+      CLASS,  //
+      RUNTIME 
+  }
+  
+  public enum ElementType {
+      TYPE,
+      FIELD,
+      METHOD,
+      PARAMETER,
+      CONSTRUCTOR,
+      LOCAL_VARIABLE,
+      ANNOTATION_TYPE,
+      PACKAGE,
+      TYPE_PARAMETER,
+      TYPE_USE
+  }
+  ````
+
+* List<? extends T>和List <? super T> 区别
+
+  ````
+  List<? extends T>可以接受任何继承自T的类型的List
+  List<? super T>可以接受任何T的父类构成的List
+  ````
+
+* 基本类型和包装类型？自动装箱和拆箱使用的注意点？
+
+  ````
+  Java1.5 新增的语法糖，在需要的地方由编译器帮你完成基础类型和包装类型的装换。
+  
+  包装类型为 Null 时，自动拆箱会报 NullPointerException。
+  ````
+
+* 异常包括哪两大类？常见异常？
+
+   http://www.importnew.com/26613.html
+
+   
+
+   ````
+   check Exception:
+   
+   uncheck Exception: NullPointerException、ClassNotFoundException
+   ````
+
+   
+
+* String, StringBuffer and StringBuilder
+
+  线程安全就是说多线程访问同一代码，不会产生不确定的结果。编写线程安全的代码是低依靠线程同步。
+
+
+* HashMap 的 实现原理？
+* 常用集合类有哪些？
+
+
+* Java 内存模式
+* 代理模式
+
+#### 计算机网络
+
+* TCP/IP 4层模型分别是哪四层？简要说明其作用。
+
+````
+应用层：各种服务及应用程序通过该层利用网络，常用协议：HTTP,FTP,SMTP
+
+传输层：确认数据传输进行纠错处理，常用协议：TCP UDP。端到端的传输
+
+网络层：负责数据传输、路径及地址选择，常用协议：IP ARP(地址解析协议）。路由，A网段的上的机器如果找到B网段上的机器。
+
+网络接口：屏蔽物理,是针对不同物理网络的连接形式的协议：Erthernet,
+````
+
+* TCP/IP 4层模型中每一层都有哪些协议？
+* Http 协议常用状态码和含义
