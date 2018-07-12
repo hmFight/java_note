@@ -4,6 +4,10 @@
 > [朱小厮的博客-13年硕士毕业](http://blog.csdn.net/u013256816/article/details/50907595)
 >
 > [李运华 阿里巴巴P9技术专家](https://blog.csdn.net/yunhua_lee)
+>
+> [Java成神之路—-死磕Java系列博客](http://cmsblogs.com/)
+>
+> [CrossoverJie-16年大学毕业-Springboot Spring相关](https://crossoverjie.top/)
 
 实战系列
 
